@@ -5,9 +5,21 @@
   <home-swiper :banners="banners"></home-swiper>
   <recommend-view :recomends="recommends"></recommend-view>
   <feature-view/>
-  <tab-control :titles="['流行','精选','时尚']"></tab-control>
+  <tab-control class="tab-control" :titles="['流行','精选','时尚']"></tab-control>
 
   <ul>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
     <li></li>
     <li></li>
     <li></li>
@@ -98,5 +110,9 @@ export default {
   right: 0;
   top: 0;
   z-index: 9;
+}
+.tab-control{
+  position: sticky;
+  top: 44px;
 }
 </style>
