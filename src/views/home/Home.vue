@@ -5,52 +5,10 @@
   <home-swiper :banners="banners"></home-swiper>
   <recommend-view :recomends="recommends"></recommend-view>
   <feature-view/>
-  <tab-control class="tab-control" :titles="['流行','精选','时尚']"></tab-control>
+  <tab-control class="tab-control" :titles="['好物','精选','时尚']"
+               @tabClick="tabClick" ></tab-control>
+  <goods-list :goods="goods[currentType].list"></goods-list>
 
-  <ul>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-  </ul>
 </div>
 </template>
 
@@ -60,9 +18,14 @@ import NavBar from "components/common/navbar/NavBar";
 import HomeSwiper from "./childComps/HomeSwiper";
 import RecommendView from "./childComps/RecommendView";
 import FeatureView from "./childComps/FeatureView";
-import TabControl from "components/common/tabControl/TabControl";
+import TabControl from "../../components/content/tabControl/TabControl";
 
-import {getHomeMultidata} from "network/home";
+
+
+
+import {getHomeMultidata,getHomeGoods} from "network/home";
+import GoodsList from "../../components/content/goods/GoodsList";
+
 
 
 
@@ -74,24 +37,63 @@ export default {
     HomeSwiper,
     RecommendView,
     FeatureView,
-    TabControl
+    TabControl,
+    GoodsList
+
   },
   // 保存数据
   data(){
     return{
       banners:[],
-      recommends:[]
+      recommends:[],
       // result:null
+      goods:{
+        "pop":{page:0,list:[]},
+        "new":{page:0,list:[]},
+        "sell":{page:0,list:[]},
+    },
+      currentType:'pop'
     }
   },
   created() {
     //1.请求多个数据
-    getHomeMultidata().then(res =>{
-      // console.log(res);
-      // this.result = res;
-      this.banners = res.data.banner.list;
-      this.recommends = res.data.recommend.list;
-    })
+    this.getHomeMultidata()
+    this.getHomeGoods("pop")
+    this.getHomeGoods("new")
+    this.getHomeGoods("sell")
+  },
+  methods:{
+    //事件监听
+    tabClick(index){
+      switch (index){
+        case 0:
+          this.currentType ="pop"
+          break
+        case 1:
+          this.currentType ="new"
+          break
+        case 2:
+          this.currentType ="sell"
+          break
+      }
+    },
+
+    //网络请求
+    getHomeMultidata () {
+      getHomeMultidata().then(res =>{
+        this.banners = res.data.banner.list;
+        this.recommends = res.data.recommend.list;
+      })
+    },
+    getHomeGoods(type){
+      const page = this.goods[type].page+1;
+
+      getHomeGoods(type,page).then(res =>{
+        this.goods[type].list.push(...res.data.list)
+        this.goods[type].page += 1
+      })
+    }
+
   }
 }
 </script>
@@ -114,5 +116,6 @@ export default {
 .tab-control{
   position: sticky;
   top: 44px;
+  z-index: 9;
 }
 </style>
