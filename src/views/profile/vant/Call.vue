@@ -1,29 +1,23 @@
 <template>
-  <van-cell-group>
-    <van-cell title="URL 跳转" is-link url="/vant/mobile.html" />
-    <van-cell title="路由跳转" is-link to="index" />
-    <van-cell title="URL 跳转" is-link url="/vant/mobile.html" />
-    <van-cell title="路由跳转" is-link to="index" />
-    <van-cell title="URL 跳转" is-link url="/vant/mobile.html" />
-    <van-cell title="路由跳转" is-link to="index" />
-    <van-cell title="URL 跳转" is-link url="/vant/mobile.html" />
-    <van-cell title="路由跳转" is-link to="index" />
-    <van-cell title="URL 跳转" is-link url="/vant/mobile.html" />
-    <van-cell title="路由跳转" is-link to="index" />
+  <van-cell-group class="group">
+    <van-cell title="我的足迹" is-link to="/profile/MyFootprint"/>
+    <van-cell title="我的评价" is-link to="/profile/MyEvaluation"/>
+    <van-cell title="地址管理" is-link to="/profile/AddressManagement"/>
+    <van-cell title="优惠券" is-link to="/profile/MissionCenter"/>
+    <van-cell title="每日签到" is-link to="/profile/CheckInDaily"/>
+    <van-cell title="服务中心" is-link to="/profile/ServiceCenter"/>
+    <van-cell title="系统设置" is-link to="/profile/SystemSetup"/>
   </van-cell-group>
 </template>
 
 <script>
-import Vue from 'vue';
-import { Cell, CellGroup } from 'vant';
-
-Vue.use(Cell);
-Vue.use(CellGroup);
 export default {
   name: "Call"
 }
 </script>
 
 <style scoped>
-
+.group {
+  margin-bottom: 100px;
+}
 </style>

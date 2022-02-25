@@ -2,8 +2,8 @@
   <van-row type="flex" justify="space-around" class="header">
     <van-col span="3"><van-icon name="volume-o" /></van-col>
     <van-col span="15"></van-col>
-    <van-col span="2"><van-icon name="setting-o"/></van-col>
-    <van-col span="2"><van-icon name="cart-o"/></van-col>
+    <van-col span="2" ><van-icon @click="getSet" name="setting-o"/></van-col>
+    <van-col span="2"><van-icon  @click="getCart" name="cart-o"/></van-col>
   </van-row>
 </template>
 
@@ -15,11 +15,17 @@ import { Col, Row } from 'vant';
 Vue.use(Col);
 Vue.use(Row);
 
-import { Icon } from 'vant';
-Vue.use(Icon);
 
 export default {
-  name: "Layout"
+  name: "Layout",
+  methods:{
+    getSet(){
+      this.$router.push('/profile/SystemSetup')
+    },
+    getCart(){
+      this.$router.push('/cart')
+    }
+  }
 }
 </script>
 
